@@ -1,0 +1,33 @@
+{
+    "name": "liliuwei/thinkphp-social",
+    "description": "适用于thinkphp5.1和6.0的社会化登录扩展",
+    "keywords": ["第三方授权登录","QQ登录","微信登录","新浪登录","百度登录","谷歌登录","Google登录","Facebook登录","Gitee登录","Github登录","Oschina登录","淘宝登录","think-social","thinkphp-social","oauth", "thinkphp","thinkphp5.1","thinkphp6.0"],
+    "license": "Apache-2.0",
+    "type": "think-extend",
+    "require": {
+        "php": "^5.6 || ^7.1",
+        "topthink/think-installer": "^2.0",
+        "topthink/framework": "^5.1 || ^6.0"
+    },
+    "authors": [
+        {
+            "name": "liliuwei",
+            "email": "974829947@qq.com"
+        }
+    ],
+    "autoload" : {
+        "psr-4" : {
+            "liliuwei\\social\\" : "src/"
+        }
+    },
+    "extra": {
+        "think-config": {
+            "social": "src/config/config.php"
+        },
+        "think": {
+            "config": {
+                "social": "src/config/config.php"
+            }
+        }
+    }
+}
