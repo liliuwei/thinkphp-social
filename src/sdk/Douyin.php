@@ -1,37 +1,37 @@
 <?php
 /**
- * 微信SDK
+ * Douyin SDK
  */
 
 namespace liliuwei\social\sdk;
 
 use liliuwei\social\Oauth;
 
-class Weixin extends Oauth
+class Douyin extends Oauth
 {
     /**
      * 获取requestCode的api接口
      * @var string
      */
-    protected $GetRequestCodeURL = 'https://open.weixin.qq.com/connect/qrconnect';
+    protected $GetRequestCodeURL = 'https://open.douyin.com/platform/oauth/connect';
 
     /**
      * 获取access_token的api接口
      * @var string
      */
-    protected $GetAccessTokenURL = 'https://api.weixin.qq.com/sns/oauth2/access_token';
+    protected $GetAccessTokenURL = 'https://open.douyin.com/oauth/access_token/';
 
     /**
-     * 获取request_code的额外参数 URL查询字符串格式
+     * 获取request_code的额外参数,可在配置中修改 URL查询字符串格式
      * @var srting
      */
-    protected $Authorize = 'scope=snsapi_login';
+    protected $Authorize = 'scope=user_info';
 
     /**
      * API根路径
      * @var string
      */
-    protected $ApiBase = 'https://api.weixin.qq.com/';
+    protected $ApiBase = 'https://open.douyin.com/';
 
     /**
      * 请求code
@@ -40,7 +40,7 @@ class Weixin extends Oauth
     {
         $this->config();
         $params = array(
-            'appid' => $this->AppKey,
+            'client_key ' => $this->AppKey,
             'redirect_uri' => $this->Callback,
             'response_type' => $this->ResponseType,
         );
@@ -54,7 +54,7 @@ class Weixin extends Oauth
                 throw new \Exception('AUTHORIZE配置不正确！');
             }
         }
-        return $this->GetRequestCodeURL . '?' . http_build_query($params) . "#wechat_redirect";
+        return $this->GetRequestCodeURL . '?' . http_build_query($params);
     }
 
     /**
@@ -65,30 +65,29 @@ class Weixin extends Oauth
     {
         $this->config();
         $params = array(
-            'appid' => $this->AppKey,
-            'secret' => $this->AppSecret,
+            'client_key' => $this->AppKey,
+            'client_secret ' => $this->AppSecret,
             'grant_type' => $this->GrantType,
             'code' => $code,
         );
-        $data = $this->http($this->GetAccessTokenURL, $params, 'POST');
+        $data = $this->http($this->GetAccessTokenURL, $params, 'GET');
         $this->Token = $this->parseToken($data, $extend);
         return $this->Token;
     }
 
     /**
      * 组装接口调用参数 并调用接口
-     * @param  string $api 微信 API
+     * @param  string $api Douyin API
      * @param  string $param 调用API的额外参数
      * @param  string $method HTTP请求方法 默认为GET
      * @return json
      */
     public function call($api, $param = '', $method = 'GET', $multi = false)
     {
-        /* 微信调用公共参数 */
+        /* Douyin 调用公共参数 */
         $params = array(
             'access_token' => $this->Token['access_token'],
-            'openid' => $this->openid(),
-            'lang' => 'zh_CN',
+            'open_id' => $this->openid(),
         );
         $data = $this->http($this->url($api), $this->param($params, $param), $method);
         return json_decode($data, true);
@@ -96,31 +95,35 @@ class Weixin extends Oauth
 
     /**
      * 解析access_token方法请求后的返回值
+     * @param string $result 获取access_token的方法的返回值
      */
     protected function parseToken($result, $extend)
     {
         $data = json_decode($result, true);
+        $data = $data['data'];
         if ($data['access_token'] && $data['expires_in']) {
             $this->Token = $data;
             $data['openid'] = $this->openid();
             return $data;
         } else
-            throw new \Exception("获取微信 ACCESS_TOKEN 出错：{$result}");
+            throw new \Exception("获取 抖音 ACCESS_TOKEN出错：未知错误");
     }
 
     /**
      * 获取当前授权应用的openid
+     * @return string
      */
     public function openid($unionid=false)
     {
         if ($unionid){
             return $this->unionid();
         }
-        $data = $this->Token;
-        if (isset($data['openid']))
-            return $data['openid'];
+        $data = $this->call('oauth/userinfo');
+        $data = $data['data'];
+        if (isset($data['open_id']))
+            return $data['open_id'];
         else
-            exit('没有获取到微信用户openid！');
+            throw new \Exception('没有获取到 抖音 用户openid！');
     }
 
     /**
@@ -128,10 +131,11 @@ class Weixin extends Oauth
      */
     public function unionid()
     {
-        $data = $this->Token;
-        if (isset($data['unionid']))
-            return $data['unionid'];
+        $data = $this->call('oauth/userinfo');
+        $data = $data['data'];
+        if (isset($data['union_id']))
+            return $data['union_id'];
         else
-            exit('没有获取到微信用户unionid！');
+            exit('没有获取到 抖音 用户unionid！');
     }
 }

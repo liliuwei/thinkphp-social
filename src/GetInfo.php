@@ -218,4 +218,46 @@ final class GetInfo
             throw new \Exception("获取淘宝用户信息失败");
         }
     }
+
+    //Douyin用户信息
+    public static function douyin($token)
+    {
+        $douyin = Oauth::getInstance('douyin', $token);
+        $data = $douyin->call('oauth/userinfo');
+        $data = $data['data'];
+        if (isset($data['open_id'])) {
+            $userInfo['type'] = 'douyin';
+            $userInfo['name'] = $data['nickname'];
+            $userInfo['nickname'] = $data['nickname'];
+            $userInfo['avatar'] = $data['avatar'];
+            $userInfo['openid'] = $data['open_id'];
+            $userInfo['unionid'] = $data['union_id'];
+            $userInfo['gender'] = $data['sex']==1?'男':'女';
+            $userInfo['city'] = $data['city'];
+            $userInfo['province'] = $data['province'];
+            $userInfo['country'] = $data['country'];
+            return $userInfo;
+        } else {
+            throw new \Exception("获取抖音用户信息失败");
+        }
+    }
+
+    //Xiaomi用户信息
+    public static function xiaomi($token)
+    {
+        $xiaomi = Oauth::getInstance('xiaomi', $token);
+        $data = $xiaomi->call('user/profile');
+        $data = $data['data'];
+        if (isset($data['unionId'])) {
+            $userInfo['type'] = 'xiaomi';
+            $userInfo['name'] = $data['miliaoNick'];
+            $userInfo['nickname'] = $data['miliaoNick'];
+            $userInfo['avatar'] = $data['miliaoIcon'];
+            $userInfo['openid'] = array_key_exists('userId',$data)?$data['userId']:$data['unionId'];
+            $userInfo['unionid'] = $data['unionId'];
+            return $userInfo;
+        } else {
+            throw new \Exception("获取小米用户信息失败");
+        }
+    }
 }

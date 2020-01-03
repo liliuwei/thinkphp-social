@@ -1,7 +1,11 @@
 ## thinkphp-social
 适用于thinkphp5.1 thinkphp6.0的社会化登录扩展
 
-目前已支持：QQ、微信、新浪、百度、Gitee、Github、Oschina、Google、Facebook、淘宝
+目前已支持：QQ、微信、新浪、百度、Gitee、Github、Oschina、Google、Facebook、淘宝、抖音、小米
+
+欢迎提交pr或者建议!
+
+有问题可以联系邮箱：974829947@qq.com
 
 ## 安装（扩展包）
 ```php
@@ -41,6 +45,8 @@ return [
 <a href="{:url('Oauth/login',['type'=>'google'])}">google登录</a>
 <a href="{:url('Oauth/login',['type'=>'facebook'])}">facebook登录</a>
 <a href="{:url('Oauth/login',['type'=>'taobao'])}">淘宝登录</a>
+<a href="{:url('Oauth/login',['type'=>'douyin'])}">抖音登录</a>
+<a href="{:url('Oauth/login',['type'=>'xiaomi'])}">小米登录</a>
    ````
 ```php
 //设置路由

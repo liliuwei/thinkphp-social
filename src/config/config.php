@@ -63,5 +63,17 @@ return [
         'app_key' => '', //应用注册成功后分配的 APP ID
         'app_secret' => '',  //应用注册成功后分配的KEY
         'callback' => '', // 应用回调地址
+    ],
+    //Douyin登录配置
+    'douyin' => [
+        'app_key' => '', //应用注册成功后分配的 APP ID
+        'app_secret' => '',  //应用注册成功后分配的KEY
+        'callback' => '', // 应用回调地址
+    ],
+    //Xiaomi登录配置
+    'xiaomi' => [
+        'app_key' => '', //应用注册成功后分配的 APP ID
+        'app_secret' => '',  //应用注册成功后分配的KEY
+        'callback' => '', // 应用回调地址
     ]
 ];

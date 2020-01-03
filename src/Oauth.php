@@ -109,7 +109,7 @@ abstract class Oauth
     public static function getInstance($type, $token = null)
     {
         $sdk = [
-            'Qq', 'Weixin', 'Sina', 'Baidu', 'Gitee', 'Github', 'Google', 'Facebook', 'Taobao', 'Oschina'
+            'Qq', 'Weixin', 'Sina', 'Baidu', 'Gitee', 'Github', 'Google', 'Facebook', 'Taobao', 'Oschina', 'Douyin', 'Xiaomi'
         ];
         $name = ucfirst(strtolower($type));
         if (in_array($name, $sdk)) {
