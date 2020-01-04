@@ -75,5 +75,11 @@ return [
         'app_key' => '', //应用注册成功后分配的 APP ID
         'app_secret' => '',  //应用注册成功后分配的KEY
         'callback' => '', // 应用回调地址
+    ],
+    //Dingtalk登录配置
+    'dingtalk' => [
+        'app_key' => '', //应用注册成功后分配的 APP ID
+        'app_secret' => '',  //应用注册成功后分配的KEY
+        'callback' => '', // 应用回调地址
     ]
 ];

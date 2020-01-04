@@ -260,4 +260,21 @@ final class GetInfo
             throw new \Exception("获取小米用户信息失败");
         }
     }
+
+    //Dingtalk用户信息
+    public static function dingtalk($token)
+    {
+        $data = $token;
+        if ($data['openid']) {
+            $userInfo['type'] = 'dingtalk';
+            $userInfo['name'] = $data['nick'];
+            $userInfo['nickname'] = $data['nick'];
+            $userInfo['avatar'] = '';
+            $userInfo['openid'] = $data['openid'];
+            $userInfo['unionid'] = $data['unionid'];
+            return $userInfo;
+        } else {
+            throw new \Exception("获取钉钉用户信息失败");
+        }
+    }
 }
