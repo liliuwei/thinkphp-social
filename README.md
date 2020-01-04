@@ -1,7 +1,7 @@
 ## thinkphp-social
 适用于thinkphp5.1 thinkphp6.0的社会化登录扩展
 
-目前已支持：QQ、微信、新浪、百度、Gitee、Github、Oschina、Google、Facebook、淘宝、抖音、小米
+目前已支持：QQ、微信、新浪、百度、Gitee、Github、Oschina、Google、Facebook、淘宝、抖音、小米、钉钉
 
 欢迎提交pr或者建议!
 
