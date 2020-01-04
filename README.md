@@ -47,6 +47,7 @@ return [
 <a href="{:url('Oauth/login',['type'=>'taobao'])}">淘宝登录</a>
 <a href="{:url('Oauth/login',['type'=>'douyin'])}">抖音登录</a>
 <a href="{:url('Oauth/login',['type'=>'xiaomi'])}">小米登录</a>
+<a href="{:url('Oauth/login',['type'=>'dingtalk'])}">钉钉登录</a>
    ````
 ```php
 //设置路由
