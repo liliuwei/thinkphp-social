@@ -40,7 +40,7 @@ class Douyin extends Oauth
     {
         $this->config();
         $params = array(
-            'client_key ' => $this->AppKey,
+            'client_key' => $this->AppKey,
             'redirect_uri' => $this->Callback,
             'response_type' => $this->ResponseType,
         );
@@ -66,7 +66,7 @@ class Douyin extends Oauth
         $this->config();
         $params = array(
             'client_key' => $this->AppKey,
-            'client_secret ' => $this->AppSecret,
+            'client_secret' => $this->AppSecret,
             'grant_type' => $this->GrantType,
             'code' => $code,
         );
